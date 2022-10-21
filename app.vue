@@ -93,14 +93,14 @@
                       </div>
                     </div>
                     <img
-                      :src="'images/tones/' + (index + 1) + '.png'"
+                      :src="'../images/tones/' + ((index % 30) + 1) + '.png'"
                       class="tones-img"
                     />
                   </div>
                 </div>
               </div>
             </div>
-            <a class="tones-more" href="__ROOT__/new.html">もっと見る</a>
+            <a class="tones-more" id="loadMore" @click="more">もっと見る</a>
           </section>
         </div>
       </div>
@@ -108,11 +108,44 @@
   </div>
 </template>
 <script setup>
-import {ref} from 'vue'
+import {ref, onMounted} from 'vue'
 const list = ref('');
-const arrayList = await useFetch('https://hiappo.app/getlist',{method:'get',params:{lang:'ja'}});
-console.log(arrayList.data.value.list);
-list.value = arrayList.data.value.list;
+const { data:arrayList, refresh } = await useFetch(() => 'https://hiappo.app/getlist', {method:'get',params:{lang:'ja'}});
+list.value = arrayList._value.list;
+console.log(arrayList._value.list);
+
+function more() {
+    refresh();
+    list.value = arrayList._value.list;
+}
+
+/* 滑动加载数据 */
+onMounted(()=>{
+    var viewHeight = document.documentElement.clientHeight;
+    let loadMore = document.getElementById("loadMore");
+    function GetRect (element) {
+    let rectbox = element.getBoundingClientRect();
+    let top = document.documentElement.clientTop ? document.documentElement.clientTop : 0;
+    let left = document.documentElement.clientLeft ? document.documentElement.clientLeft : 0;
+    return {
+        top: rectbox.top - top,
+        bottom: rectbox.bottom - top,
+        left: rectbox.left - left,
+        right: rectbox.right - left
+    }
+    }
+    window.addEventListener("scroll",function () {
+        let obj = GetRect(loadMore)
+        if (obj.top < viewHeight && obj.bottom >= viewHeight) { 
+            refresh();
+            list.value = list.value.concat(arrayList._value.list);
+        }
+    })
+}) 
+    
+
+
+
 </script>
 <style>
 * {
