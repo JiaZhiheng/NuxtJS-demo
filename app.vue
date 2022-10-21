@@ -93,7 +93,7 @@
                       </div>
                     </div>
                     <img
-                      :src="'../images/tones/' + ((index % 30) + 1) + '.png'"
+                      :src="'/tones/' + ((index % 30) + 1) + '.png'"
                       class="tones-img"
                     />
                   </div>
@@ -137,6 +137,7 @@ onMounted(()=>{
     window.addEventListener("scroll",function () {
         let obj = GetRect(loadMore)
         if (obj.top < viewHeight && obj.bottom >= viewHeight) { 
+            console.log("触发滑动加载");
             refresh();
             list.value = list.value.concat(arrayList._value.list);
         }
