@@ -1,116 +1,90 @@
 <template>
-  <div>
-    <body>
-      <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
-        <defs>
-          <symbol id="icon-ringstart" viewBox="0 0 70 70">
-            <path
-              d="M50.4597734,36.1314324 L26.4920573,49.6784024 C26.0112587,49.9501581 25.4011929,49.7806954 25.1294372,49.2998968 C25.044589,49.1497808 25,48.9802752 25,48.8078396 L25,21.7138995 C25,21.1616148 25.4477153,20.7138995 26,20.7138995 C26.1724356,20.7138995 26.3419412,20.7584885 26.4920573,20.8433367 L50.4597734,34.3903067 C50.940572,34.6620624 51.1100347,35.2721282 50.838279,35.7529268 C50.7488503,35.9111468 50.6179934,36.0420037 50.4597734,36.1314324 Z"
-              id="Play-triangle"
-              fill="#FFFFFF"
-            ></path>
-            <g class="sc-fzoydu ctZjfV">
-              <circle
-                opacity="1"
-                cx="35"
-                cy="35"
-                r="34"
-                class="sc-fzoJMP gWdKUw"
-              ></circle>
-              <circle
-                stroke-dasharray="213.62830044410595"
-                stroke-dashoffset="213"
-                r="34"
-                cx="35"
-                cy="35"
-                class="circle"
-              ></circle>
-            </g>
-          </symbol>
-        </defs>
-      </svg>
-      <div id="app">
-        <header class="header">
-          <div class="wrapper">
-            <div class="header-con">
-              <a
-                class="logo"
-                href="/ja-hiappo/"
-                rel="home"
-                title="Best App News &amp; Free APK Download"
-              ></a>
-              <input type="checkbox" id="topmenu" />
-              <label for="topmenu" class="opacityblack"></label>
-              <label for="topmenu" class="topmenu-box">
-                <span class="menu-icon"></span>
-              </label>
-              <input type="checkbox" id="searchmenu" />
-              <label for="searchmenu" class="opacitywhite"></label>
-              <label for="searchmenu" class="search-icon-wp">
-                <span class="search-icon"></span>
-              </label>
-              <div class="menu-category">
-                <div class="menu-category-item">
-                  <a class="coverlink" href="/ja-hiappo/"></a>
-                  <span class="menu-category-link">着信音</span>
-                </div>
-                <div class="menu-category-item">
-                  <a class="coverlink" href="/ja-hiappo/wallpapers.html"></a>
-                  <span class="menu-category-link">スマホ壁紙</span>
-                </div>
-              </div>
-              <div class="search">
-                <div class="search-pos"><span class="search-icon"></span></div>
-                <form class="search-form" action="/ja-hiappo/search-ringtones">
-                  <input
-                    class="sea-text"
-                    type="text"
-                    name="q"
-                    required=""
-                    placeholder="無料着信音を検索"
-                    value=""
-                  />
-                  <button class="sea-btn" type="submit"></button>
-                </form>
-              </div>
-            </div>
-          </div>
-        </header>
-        <div class="wrapper">
-          <section>
-            <h2 class="section-tl">新着着信音</h2>
-            <div class="tones-ls">
-              <div class="tones-item" v-for="(item, index) in list">
-                <div class="tones-wp">
-                  <div class="tones-con">
-                    <a class="coverlink" href="#"></a>
-                    <a class="tones-name" href="#">{{ item.name }}</a>
-                    <div class="tones-play">
-                      <div class="ringend">
-                        <svg class="icon-ring">
-                          <use xlink:href="#icon-ringstart"></use>
-                        </svg>
-                      </div>
+    <div>
+
+        <body>
+            <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
+                <defs>
+                    <symbol id="icon-ringstart" viewBox="0 0 70 70">
+                        <path
+                            d="M50.4597734,36.1314324 L26.4920573,49.6784024 C26.0112587,49.9501581 25.4011929,49.7806954 25.1294372,49.2998968 C25.044589,49.1497808 25,48.9802752 25,48.8078396 L25,21.7138995 C25,21.1616148 25.4477153,20.7138995 26,20.7138995 C26.1724356,20.7138995 26.3419412,20.7584885 26.4920573,20.8433367 L50.4597734,34.3903067 C50.940572,34.6620624 51.1100347,35.2721282 50.838279,35.7529268 C50.7488503,35.9111468 50.6179934,36.0420037 50.4597734,36.1314324 Z"
+                            id="Play-triangle" fill="#FFFFFF"></path>
+                        <g class="sc-fzoydu ctZjfV">
+                            <circle opacity="1" cx="35" cy="35" r="34" class="sc-fzoJMP gWdKUw"></circle>
+                            <circle stroke-dasharray="213.62830044410595" stroke-dashoffset="213" r="34" cx="35" cy="35"
+                                class="circle"></circle>
+                        </g>
+                    </symbol>
+                </defs>
+            </svg>
+            <div id="app">
+                <header class="header">
+                    <div class="wrapper">
+                        <div class="header-con">
+                            <a class="logo" href="/ja-hiappo/" rel="home"
+                                title="Best App News &amp; Free APK Download"></a>
+                            <input type="checkbox" id="topmenu" />
+                            <label for="topmenu" class="opacityblack"></label>
+                            <label for="topmenu" class="topmenu-box">
+                                <span class="menu-icon"></span>
+                            </label>
+                            <input type="checkbox" id="searchmenu" />
+                            <label for="searchmenu" class="opacitywhite"></label>
+                            <label for="searchmenu" class="search-icon-wp">
+                                <span class="search-icon"></span>
+                            </label>
+                            <div class="menu-category">
+                                <div class="menu-category-item">
+                                    <a class="coverlink" href="/ja-hiappo/"></a>
+                                    <span class="menu-category-link">着信音</span>
+                                </div>
+                                <div class="menu-category-item">
+                                    <a class="coverlink" href="/ja-hiappo/wallpapers.html"></a>
+                                    <span class="menu-category-link">スマホ壁紙</span>
+                                </div>
+                            </div>
+                            <div class="search">
+                                <div class="search-pos"><span class="search-icon"></span></div>
+                                <form class="search-form" action="/ja-hiappo/search-ringtones">
+                                    <input class="sea-text" type="text" name="q" required="" placeholder="無料着信音を検索"
+                                        value="" />
+                                    <button class="sea-btn" type="submit"></button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
-                    <img
-                      :src="'/tones/' + ((index % 30) + 1) + '.png'"
-                      class="tones-img"
-                    />
-                  </div>
+                </header>
+                <div class="wrapper">
+                    <section>
+                        <h2 class="section-tl">新着着信音</h2>
+                        <div class="tones-ls">
+                            <div class="tones-item" v-for="(item, index) in list">
+                                <div class="tones-wp">
+                                    <div class="tones-con">
+                                        <a class="coverlink" href="#"></a>
+                                        <a class="tones-name" href="#">{{ item.name }}</a>
+                                        <div class="tones-play">
+                                            <div class="ringend">
+                                                <svg class="icon-ring">
+                                                    <use xlink:href="#icon-ringstart"></use>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                        <img :src="'/tones/' + ((index % 30) + 1) + '.png'" class="tones-img" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="tones-more" id="loadMore" @click="more">もっと見る</a>
+                    </section>
                 </div>
-              </div>
             </div>
-            <a class="tones-more" id="loadMore" @click="more">もっと見る</a>
-          </section>
-        </div>
-      </div>
-    </body>
-  </div>
+        </body>
+    </div>
 </template>
 <script setup>
-import {ref, onMounted} from 'vue'
+import { ref, onMounted } from 'vue'
 const list = ref('');
-const { data:arrayList, refresh } = await useFetch(() => 'https://hiappo.app/getlist', {method:'get',params:{lang:'ja'}});
+const { data: arrayList, refresh } = await useFetch(() => 'https://hiappo.app/getlist', { method: 'get', params: { lang: 'ja' } });
 list.value = arrayList._value.list;
 console.log(arrayList._value.list);
 
@@ -120,32 +94,36 @@ function more() {
 }
 
 /* 滑动加载数据 */
-onMounted(()=>{
+onMounted(() => {
     var viewHeight = document.documentElement.clientHeight;
     let loadMore = document.getElementById("loadMore");
-    function GetRect (element) {
-    let rectbox = element.getBoundingClientRect();
-    let top = document.documentElement.clientTop ? document.documentElement.clientTop : 0;
-    let left = document.documentElement.clientLeft ? document.documentElement.clientLeft : 0;
-    return {
-        top: rectbox.top - top,
-        bottom: rectbox.bottom - top,
-        left: rectbox.left - left,
-        right: rectbox.right - left
+    function GetRect(element) {
+        let rectbox = element.getBoundingClientRect();
+        let top = document.documentElement.clientTop ? document.documentElement.clientTop : 0;
+        let left = document.documentElement.clientLeft ? document.documentElement.clientLeft : 0;
+        return {
+            top: rectbox.top - top,
+            bottom: rectbox.bottom - top,
+            left: rectbox.left - left,
+            right: rectbox.right - left
+        }
     }
-    }
-    window.addEventListener("scroll",function () {
+    window.addEventListener("scroll", function () {
         let obj = GetRect(loadMore)
-        if (obj.top < viewHeight && obj.bottom >= viewHeight) { 
+        if (obj.top < viewHeight && obj.bottom >= viewHeight) {
             console.log("触发滑动加载");
             refresh();
             list.value = list.value.concat(arrayList._value.list);
         }
     })
-}) 
+})
 
 /* Router */
-    
+
+
+
+/* 清除注释 */
+
 
 
 
@@ -549,10 +527,10 @@ li {
     margin: 0 auto;
 
     text-align: center;
-    
+
     color: #fff;
     background-size: 143px 32px;
-    
+
 }
 
 .footer {
@@ -763,6 +741,7 @@ li {
 
     width: 100%;
 }
+
 .wallpapers-tones-more {
     line-height: 48px;
     display: block;
@@ -774,6 +753,7 @@ li {
     background-color: #ed203b;
     cursor: pointer;
 }
+
 .tones-more {
     line-height: 48px;
     display: block;
@@ -1146,12 +1126,15 @@ li {
 .passage {
     margin-top: 20px;
 }
+
 .help-passage {
     margin-top: 14px;
 }
+
 .help-section {
     margin-top: -34px;
 }
+
 .retitle {
     font-size: 22px;
 
@@ -1810,23 +1793,23 @@ audio {
 }
 
 .wallpaper-content {
-    position: relative;  
-    width: 100%;         
-    padding-bottom: 180%;    
+    position: relative;
+    width: 100%;
+    padding-bottom: 180%;
 }
 
 .wallpaper-content::before {
-    content: "";         
-    position: absolute;  
-    width: 100%;         
-    height: 100%;        
-    background-color: #eee;  
-}  
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #eee;
+}
 
 .wallpaper-content img {
-    position: absolute; 
-    height: 100%;        
-    width: 100%;         
+    position: absolute;
+    height: 100%;
+    width: 100%;
 }
 
 .breadcrumb {
@@ -1839,6 +1822,7 @@ audio {
     white-space: nowrap;
     color: #bbb;
 }
+
 .breadcrumb span {
     font-size: 12px;
     padding-right: 8px;
@@ -1853,6 +1837,7 @@ audio {
     transform: translateY(-50%);
     width: 10%;
 }
+
 .nextWp {
     position: absolute;
     right: 5%;
@@ -1861,6 +1846,7 @@ audio {
     transform: translateY(-50%);
     width: 10%;
 }
+
 .download {
     line-height: 48px;
     font-size: 20px;
@@ -1875,17 +1861,21 @@ audio {
     align-items: center;
     background-color: #ed203b;
 }
+
 .desktop-tones-ls {
     display: none;
 }
+
 .mobile-tones-ls {
     display: flex;
     flex-wrap: wrap;
     margin-left: -12px;
 }
+
 .pageright {
     display: none;
 }
+
 .wallpapers-box {
     margin: 12px 0;
     width: 100%;
@@ -1894,41 +1884,49 @@ audio {
     justify-content: center;
     align-items: center;
 }
+
 .wallpapers-background-box {
     width: 65%;
-    margin: 0 auto;   
+    margin: 0 auto;
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
 .wallpapers-content-image {
     display: block;
     transform: scale(0.86);
     border-radius: 20px;
 }
+
 .wallpapers-background-image {
     height: 100%;
     position: absolute;
 }
+
 .ringadsmb {
     display: block;
     width: 100%;
     padding-left: 12px;
     padding-bottom: 12px;
-} 
+}
+
 .ringadsmobile {
     display: block;
     width: 100%;
     padding-bottom: 12px;
-} 
+}
+
 .wallpapersadsmobile {
     display: block;
     width: 100%;
 }
+
 .section-custom {
     margin-top: -22px;
 }
-.section-customer{
+
+.section-customer {
     margin-top: -34px;
 }
 
@@ -2004,7 +2002,8 @@ div.audio-down-link {
 @media screen and (min-width: 768px) {
     .section-custom {
         margin-top: -34px;
-    } 
+    }
+
     .tones-name {
         font-size: 14px;
     }
@@ -2079,11 +2078,13 @@ div.audio-down-link {
         justify-content: flex-start;
         margin-bottom: 12px
     }
+
     .desktop-tones-ls {
         display: flex;
         flex-wrap: wrap;
         margin-left: -12px;
     }
+
     .mobile-tones-ls {
         display: none;
     }
@@ -2122,7 +2123,7 @@ div.audio-down-link {
         display: block;
     }
 
-    
+
     .tones-item,
     .category-item {
         flex: 0 0 20%;
@@ -2306,56 +2307,84 @@ div.audio-down-link {
     .tag-item:hover {
         box-shadow: 0 0 4px 0 rgba(50, 50, 50, .22);
     }
-    
-    .download { 
+
+    .download {
         margin-bottom: 0;
         margin-top: 12px;
     }
+
     .preview {
         display: flex;
     }
+
     .pageleft {
         width: 577px;
     }
+
     .prevWp {
-        transform:translate(20px,-50%);
+        transform: translate(20px, -50%);
     }
+
     .prevWp:hover {
-        transform:translate(0,-50%);
+        transform: translate(0, -50%);
         animation: prevWp .3s;
     }
+
     .nextWp {
-        transform:translate(-20px,-50%);
-    }   
+        transform: translate(-20px, -50%);
+    }
+
     .nextWp:hover {
-        transform:translate(0,-50%);
+        transform: translate(0, -50%);
         animation: nextWp .3s;
     }
-    @keyframes prevWp
-    {
-        from {transform:translate(20px,-50%)}
-        to {transform:translate(0,-50%)}
+
+    @keyframes prevWp {
+        from {
+            transform: translate(20px, -50%)
+        }
+
+        to {
+            transform: translate(0, -50%)
+        }
     }
-    @-webkit-keyframes prevWp 
-    {
-        from {transform:translate(20px,-50%)}
-        to {transform:translate(0,-50%)}
+
+    @-webkit-keyframes prevWp {
+        from {
+            transform: translate(20px, -50%)
+        }
+
+        to {
+            transform: translate(0, -50%)
+        }
     }
-    @keyframes nextWp
-    {
-        from {transform:translate(-20px,-50%)}
-        to {transform:translate(0,-50%)}
+
+    @keyframes nextWp {
+        from {
+            transform: translate(-20px, -50%)
+        }
+
+        to {
+            transform: translate(0, -50%)
+        }
     }
-    @-webkit-keyframes nextWp 
-    {
-        from {transform:translate(-20px,-50%)}
-        to {transform:translate(0,-50%)}
+
+    @-webkit-keyframes nextWp {
+        from {
+            transform: translate(-20px, -50%)
+        }
+
+        to {
+            transform: translate(0, -50%)
+        }
     }
+
     .pageright {
         display: block;
         width: 346px;
         padding-left: 46px;
     }
+
     .wallpapers-box {
         width: 577px;
         height: 500px;
@@ -2364,17 +2393,21 @@ div.audio-down-link {
         justify-content: center;
         align-items: center;
     }
+
     .wallpapers-background-box {
         height: 500px;
     }
+
     .wallpapers-content-image {
         transform: scale(1);
         height: 86%;
         border-radius: 20px;
     }
+
     .help-section {
         margin-top: -54px;
     }
+
     .menu-category {
         display: flex;
         position: absolute;
@@ -2382,6 +2415,7 @@ div.audio-down-link {
         top: 0;
         z-index: 1008;
     }
+
     .menu-category-item {
         position: relative;
         display: flex;
@@ -2389,13 +2423,15 @@ div.audio-down-link {
         align-items: center;
         height: 56px;
         padding-right: 16px;
-        color:#ed203b;
+        color: #ed203b;
     }
+
     .menu-category-link {
-        color:#ed203b;
+        color: #ed203b;
         font-size: 16px;
         line-height: 1;
     }
+
     .menu-category-item:hover {
         text-decoration: underline;
     }
