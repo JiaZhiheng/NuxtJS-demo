@@ -1,0 +1,92 @@
+<template>
+  <div>
+    <div id="app">
+        <header class="header">
+            <div class="wrapper">
+                <div class="header-con">
+                    <a class="logo" href="/ja-hiappo/" rel="home"
+                        title="Best App News &amp; Free APK Download"></a>
+                    <input type="checkbox" id="topmenu" />
+                    <label for="topmenu" class="opacityblack"></label>
+                    <label for="topmenu" class="topmenu-box">
+                        <span class="menu-icon"></span>
+                    </label>
+                    <input type="checkbox" id="searchmenu" />
+                    <label for="searchmenu" class="opacitywhite"></label>
+                    <label for="searchmenu" class="search-icon-wp">
+                        <span class="search-icon"></span>
+                    </label>
+                    <div class="menu-category">
+                        <div class="menu-category-item">
+                            <span class="menu-category-link"><NuxtLink to="/">人気着信音</NuxtLink></span>
+                        </div>
+                        <div class="menu-category-item">
+                            <span class="menu-category-link">新着着信音</span>
+                        </div>
+                    </div>
+                    <div class="search">
+                        <div class="search-pos"><span class="search-icon"></span></div>
+                        <form class="search-form" action="/ja-hiappo/search-ringtones">
+                            <input class="sea-text" type="text" name="q" required="" placeholder="無料着信音を検索"
+                                value="" />
+                            <button class="sea-btn" type="submit"></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="wrapper">
+            <section>
+                <h2 class="section-tl">新着着信音</h2>
+                <div class="tones-ls">
+                    <div class="tones-item" v-for="(item, index) in list">
+                        <Music :value="item" :index="index"></Music>
+                    </div>
+                </div>
+                <a class="tones-more" id="loadMore" @click="more">もっと見る</a>
+            </section>
+        </div>
+    </div>
+  </div>
+</template>
+<script setup>
+import { ref, onMounted } from 'vue'
+const list = ref('');
+const { data: arrayList, refresh } = await useFetch(() => 'https://hiappo.app/getlist', { method: 'get', params: { lang: 'ja' } });
+list.value = arrayList._value.list;
+console.log(arrayList._value.list);
+
+function more() {
+  refresh();
+  list.value = arrayList._value.list;
+}
+
+definePageMeta({
+
+})
+
+/* 滑动加载数据 */
+onMounted(() => {
+  var viewHeight = document.documentElement.clientHeight;
+  let loadMore = document.getElementById("loadMore");
+  function GetRect(element) {
+      let rectbox = element.getBoundingClientRect();
+      let top = document.documentElement.clientTop ? document.documentElement.clientTop : 0;
+      let left = document.documentElement.clientLeft ? document.documentElement.clientLeft : 0;
+      return {
+          top: rectbox.top - top,
+          bottom: rectbox.bottom - top,
+          left: rectbox.left - left,
+          right: rectbox.right - left
+      }
+  }
+  window.addEventListener("scroll", function () {
+      let obj = GetRect(loadMore)
+      if (obj.top < viewHeight && obj.bottom >= viewHeight) {
+          console.log("触发滑动加载");
+          refresh();
+          list.value = list.value.concat(arrayList._value.list);
+      }
+  })
+})
+</script>
