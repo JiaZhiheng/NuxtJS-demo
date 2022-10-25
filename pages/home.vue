@@ -43,7 +43,7 @@
                         <Music :value="item" :index="index"></Music>
                     </div>
                 </div>
-                <a class="tones-more" id="loadMore" @click="more">もっと見る</a>
+                <a class="tones-more" id="loadMore">もっと見る</a>
             </section>
         </div>
     </div>
@@ -56,18 +56,14 @@ const { data: arrayList, refresh } = await useFetch(() => 'https://hiappo.app/ge
 list.value = arrayList._value.list;
 console.log(arrayList._value.list);
 
-function more() {
-  refresh();
-  list.value = arrayList._value.list;
-}
-
 definePageMeta({
 
 })
 
 /* 滑动加载数据 */
 onMounted(() => {
-  var viewHeight = document.documentElement.clientHeight;
+  console.log("执行mounted");
+  let viewHeight = document.documentElement.clientHeight;
   let loadMore = document.getElementById("loadMore");
   function GetRect(element) {
       let rectbox = element.getBoundingClientRect();
@@ -81,6 +77,19 @@ onMounted(() => {
       }
   }
   window.addEventListener("scroll", function () {
+      let obj = GetRect(loadMore)
+      if (obj.top < viewHeight && obj.bottom >= viewHeight) {
+          console.log("触发滑动加载");
+          refresh();
+          list.value = list.value.concat(arrayList._value.list);
+      }
+  })
+})
+
+// 移除监听事件
+onUnmounted(() => {
+  window.removeEventListener("scroll", function () {
+      console.log("监听到页面滚动");
       let obj = GetRect(loadMore)
       if (obj.top < viewHeight && obj.bottom >= viewHeight) {
           console.log("触发滑动加载");

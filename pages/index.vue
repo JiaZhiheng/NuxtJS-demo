@@ -43,7 +43,7 @@
                     <Music :value="item" :index="index"></Music>
                   </div>
                 </div>
-                <a class="tones-more" id="loadMore" @click="more">もっと見る</a>
+                <a class="tones-more" id="loadMore">もっと見る</a>
             </section>
         </div>
     </div>
@@ -51,20 +51,15 @@
 </template>
 <script setup>
 import { ref, onMounted } from 'vue'
-
 const list = ref('');
 const { data: arrayList, refresh } = await useFetch(() => 'https://hiappo.app/getlist', { method: 'get', params: { lang: 'ja' } });
 list.value = arrayList._value.list;
 console.log(arrayList._value.list);
 
-function more() {
-  refresh();
-  list.value = arrayList._value.list;
-}
-
 /* 滑动加载数据 */
 onMounted(() => {
-  var viewHeight = document.documentElement.clientHeight;
+  console.log("执行mounted");
+  let viewHeight = document.documentElement.clientHeight;
   let loadMore = document.getElementById("loadMore");
   function GetRect(element) {
       let rectbox = element.getBoundingClientRect();
@@ -77,13 +72,20 @@ onMounted(() => {
           right: rectbox.right - left
       }
   }
-  window.addEventListener("scroll", function () {
+  // 滑动加载方法
+  function scrollLoad() {
       let obj = GetRect(loadMore)
       if (obj.top < viewHeight && obj.bottom >= viewHeight) {
           console.log("触发滑动加载");
           refresh();
           list.value = list.value.concat(arrayList._value.list);
       }
-  })
+  }
+  window.addEventListener("scroll", scrollLoad, true)
+})
+
+// 移除监听事件
+onUnmounted(() => {
+  window.removeEventListener("scroll", scrollLoad, true)
 })
 </script>
