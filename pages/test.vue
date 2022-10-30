@@ -22,7 +22,9 @@
 						</label>
 						<div class="menu-category">
 							<div class="menu-category-item">
-								<span class="menu-category-link">人気着信音</span>
+								<span class="menu-category-link">
+									<NuxtLink to="/">人気着信音</NuxtLink>
+								</span>
 							</div>
 							<div class="menu-category-item">
 								<span class="menu-category-link">
@@ -30,9 +32,7 @@
 								</span>
 							</div>
 							<div class="menu-category-item">
-								<span class="menu-category-link">
-									<NuxtLink to="/test">Test</NuxtLink>
-								</span>
+								<span class="menu-category-link"> Test </span>
 							</div>
 						</div>
 						<div class="search">
@@ -54,48 +54,53 @@
 			</header>
 			<div class="wrapper">
 				<section>
-					<h2 class="section-tl">人気着信音</h2>
+					<h2 class="section-tl">{{ title }}</h2>
 					<div class="tones-ls">
-						<div class="tones-item" v-for="(item, index) in list">
+						<div class="tones-item" v-for="(item, index) in list" :key="index">
 							<Music :value="item" :index="index"></Music>
 						</div>
 					</div>
-					<a class="tones-more" id="loadMore">もっと見る</a>
+					<a class="tones-more" id="loadMore" @click="ja()">获取日文数据</a>
+					<a class="tones-more" id="loadMore" @click="en()">获取英文数据</a>
+					<a class="tones-more" id="loadMore" @click="remove()">清空数据</a>
 				</section>
 			</div>
 		</div>
 	</div>
 </template>
 <script setup>
-	import { ref, onMounted } from "vue";
-	const list = ref("");
+	import { ref } from "vue";
+	const list = ref([]);
+	const title = ref("");
 
-	const { data: arrayList, refresh } = await useFetch(
+	// 获取英文数据
+	const { data: EnglishList, refresh: English } = await useFetch(
+		() => "https://hiappo.app/getlist",
+		{ method: "get", params: { lang: "" } }
+	);
+
+	// 获取日文数据
+	// 解构赋值
+	const { data: JapanList, refresh: Japan } = await useFetch(
 		() => "https://hiappo.app/getlist",
 		{ method: "get", params: { lang: "ja" } }
 	);
-	list.value = arrayList._value.list;
 
-	function scrollLoad() {
-		let viewHeight = document.documentElement.clientHeight;
-		let loadMore = document.getElementById("loadMore");
-		let top = document.documentElement.clientTop
-			? document.documentElement.clientTop
-			: 0;
-		const temptop = loadMore.getBoundingClientRect().top - top;
-		const tempbottom = loadMore.getBoundingClientRect().bottom - top;
-		if (temptop < viewHeight && tempbottom >= viewHeight) {
-			refresh();
-			list.value = list.value.concat(arrayList._value.list);
-		}
-	}
+	// 重新获取日文数据
+	const ja = () => {
+		title.value = "日文数据";
+		Japan();
+		list.value = list.value.concat(JapanList._value.list);
+	};
 
-	/* 组件挂载 */
-	onMounted(() => {
-		window.addEventListener("scroll", scrollLoad, true);
-	});
-	/* 组件卸载 */
-	onUnmounted(() => {
-		window.removeEventListener("scroll", scrollLoad, true);
-	});
+	// 重新获取英文数据
+	const en = () => {
+		title.value = "英文数据";
+		English();
+		list.value = list.value.concat(EnglishList._value.list);
+	};
+
+	const remove = () => {
+		list.value = [];
+	};
 </script>

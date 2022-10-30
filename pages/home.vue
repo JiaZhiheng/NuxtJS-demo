@@ -29,6 +29,11 @@
 							<div class="menu-category-item">
 								<span class="menu-category-link">新着着信音</span>
 							</div>
+							<div class="menu-category-item">
+								<span class="menu-category-link">
+									<NuxtLink to="/test">Test</NuxtLink>
+								</span>
+							</div>
 						</div>
 						<div class="search">
 							<div class="search-pos"><span class="search-icon"></span></div>
