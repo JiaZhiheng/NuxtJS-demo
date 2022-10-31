@@ -30,7 +30,7 @@
 	<div class="tones-wp">
 		<div class="tones-con">
 			<a class="coverlink" href="#"></a>
-			<a class="tones-name" href="#">{{ value.name }}</a>
+			<a class="tones-name" href="#">{{ data.value.name }}</a>
 			<div class="tones-play">
 				<div class="ringend">
 					<svg class="icon-ring">
@@ -38,7 +38,10 @@
 					</svg>
 				</div>
 			</div>
-			<img :src="'/tones/' + ((index % 30) + 1) + '.png'" class="tones-img" />
+			<img
+				:src="'/tones/' + ((data.index % 30) + 1) + '.png'"
+				class="tones-img"
+			/>
 		</div>
 	</div>
 </template>
@@ -48,12 +51,10 @@
 		name: "Music",
 		props: { value: Object, index: Number }, // 从父组件接收的参数
 		setup(props) {
-			let value = props.value;
-			let index = props.index;
+			const data = ref(props);
 
 			return {
-				value,
-				index,
+				data,
 			};
 		},
 	});

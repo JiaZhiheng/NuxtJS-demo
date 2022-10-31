@@ -56,7 +56,7 @@
 				<section>
 					<h2 class="section-tl">{{ title }}</h2>
 					<div class="tones-ls">
-						<div class="tones-item" v-for="(item, index) in list" :key="index">
+						<div class="tones-item" v-for="(item, index) in list">
 							<Music :value="item" :index="index"></Music>
 						</div>
 					</div>
@@ -90,14 +90,14 @@
 	const ja = () => {
 		title.value = "日文数据";
 		Japan();
-		list.value = list.value.concat(JapanList._value.list);
+		list.value = JapanList._value.list;
 	};
 
 	// 重新获取英文数据
 	const en = () => {
 		title.value = "英文数据";
 		English();
-		list.value = list.value.concat(EnglishList._value.list);
+		list.value = EnglishList._value.list;
 	};
 
 	const remove = () => {
