@@ -54,7 +54,7 @@
 			</header>
 			<div class="wrapper">
 				<section>
-					<h2 class="section-tl">{{ title }}</h2>
+					<h2 class="section-tl">{{ name }}</h2>
 					<div class="tones-ls">
 						<div class="tones-item" v-for="(item, index) in list">
 							<Music :value="item" :index="index"></Music>
@@ -71,7 +71,32 @@
 <script setup>
 	import { ref } from "vue";
 	const list = ref([]);
-	const title = ref("");
+	const name = ref("");
+
+	// 定义Head （优先级高于全局的配置）
+	useHead({
+		link: [
+			{
+				rel: "preconnect",
+				href: "https://fonts.googleapis.com",
+			},
+			{
+				rel: "stylesheet",
+				href: "https://fonts.googleapis.com/css2?family=Roboto&display=swap",
+				crossorigin: "",
+			},
+		],
+		meta: [
+			{
+				name: "description", // 是一段简短而精确的、对页面内容的描述
+				content: "Diggo",
+			},
+			{
+				name: "keywords", // 与页面内容相关的关键词，使用逗号分隔。
+				content: "Hiappo",
+			},
+		],
+	});
 
 	// 获取英文数据
 	const { data: EnglishList, refresh: English } = await useFetch(
@@ -88,16 +113,18 @@
 
 	// 重新获取日文数据
 	const ja = () => {
-		title.value = "日文数据";
+		name.value = "日文数据";
 		Japan();
 		list.value = JapanList._value.list;
+		console.log(list.value);
 	};
 
 	// 重新获取英文数据
 	const en = () => {
-		title.value = "英文数据";
+		name.value = "英文数据";
 		English();
 		list.value = EnglishList._value.list;
+		console.log(list.value);
 	};
 
 	const remove = () => {

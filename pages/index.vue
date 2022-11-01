@@ -1,5 +1,6 @@
 <template>
 	<div>
+		<!-- 测试html中的注释能否被清除 -->
 		<div id="app">
 			<header class="header">
 				<div class="wrapper">

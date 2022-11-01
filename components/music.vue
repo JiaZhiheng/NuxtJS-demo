@@ -46,7 +46,7 @@
 	</div>
 </template>
 <script>
-	import { defineComponent, watch } from "vue";
+	import { defineComponent } from "vue";
 	export default defineComponent({
 		name: "Music",
 		props: { value: Object, index: Number }, // 从父组件接收的参数
