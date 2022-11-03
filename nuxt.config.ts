@@ -6,6 +6,21 @@ export default defineNuxtConfig({
 		head: {
 			charset: "utf-8",
 			viewport: "width=device-width,initial-scale=1.0",
+			link: [
+				{
+					rel: "preconnect",
+					href: "https://fonts.googleapis.com",
+				},
+				{
+					rel: "stylesheet",
+					href: "https://fonts.googleapis.com/css2?family=Roboto&display=swap",
+					crossorigin: "",
+				},
+				{
+					rel: "icon",
+					href: "/favicon.ico",
+				},
+			],
 			meta: [
 				{
 					name: "description",
@@ -21,3 +36,8 @@ export default defineNuxtConfig({
 		},
 	},
 });
+
+/** 亟待解决的问题
+ * 定义404页面
+ * 用插件的方式清除console.log
+ */

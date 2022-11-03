@@ -1,5 +1,14 @@
 <template>
 	<div>
+		<div>
+			<Link rel="preconnect" href="https://fonts.googleapis.com" />
+			<Link
+				rel="stylesheet"
+				href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
+				crossorigin=""
+			/>
+			<Meta name="description" :content="desc" />
+		</div>
 		<div id="app">
 			<header class="header">
 				<div class="wrapper">
@@ -75,17 +84,7 @@
 
 	// 定义Head （优先级高于全局的配置）
 	useHead({
-		link: [
-			{
-				rel: "preconnect",
-				href: "https://fonts.googleapis.com",
-			},
-			{
-				rel: "stylesheet",
-				href: "https://fonts.googleapis.com/css2?family=Roboto&display=swap",
-				crossorigin: "",
-			},
-		],
+		title: "test",
 		meta: [
 			{
 				name: "description", // 是一段简短而精确的、对页面内容的描述
@@ -94,6 +93,12 @@
 			{
 				name: "keywords", // 与页面内容相关的关键词，使用逗号分隔。
 				content: "Hiappo",
+			},
+		],
+		script: [
+			{
+				src: "https://third-party-script.com",
+				body: false, // 附加到标记的末尾
 			},
 		],
 	});
