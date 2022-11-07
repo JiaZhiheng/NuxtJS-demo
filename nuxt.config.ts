@@ -1,15 +1,11 @@
-let plugins = [];
-if (process.env.NODE_ENV === "production") {
-	plugins.push("transform-remove-console");
-}
-
-module.exports = {
-	babel: {
-		plugins,
-	},
-};
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
+	vite: {
+		esbuild: {
+			drop: ["console", "debugger"], // 生产环境下清除console.log"
+		},
+	},
+
 	app: {
 		// head部分的配置 https://v3.nuxtjs.org/getting-started/seo-meta#seo-and-meta
 		// 关于元标签的作用 https://juejin.cn/post/7089271039842058253
@@ -46,7 +42,3 @@ export default defineNuxtConfig({
 		},
 	},
 });
-
-/** 亟待解决的问题
- * 用插件的方式清除console.log
- */

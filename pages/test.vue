@@ -95,12 +95,12 @@
 				content: "Hiappo",
 			},
 		],
-		script: [
-			{
-				src: "https://third-party-script.com",
-				body: false, // 附加到标记的末尾
-			},
-		],
+		// script: [
+		// 	{
+		// 		src: "https://third-party-script.com",
+		// 		body: false, // 附加到标记的末尾
+		// 	},
+		// ],
 	});
 
 	// 获取英文数据

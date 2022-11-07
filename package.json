@@ -8,7 +8,6 @@
 		"postinstall": "nuxt prepare"
 	},
 	"devDependencies": {
-		"babel-plugin-transform-remove-console": "^6.9.4",
 		"nuxt": "3.0.0-rc.11"
 	}
 }
