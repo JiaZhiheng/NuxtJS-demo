@@ -56,7 +56,7 @@
 				<section>
 					<h2 class="section-tl">新着着信音</h2>
 					<div class="tones-ls">
-						<div class="tones-item" v-for="(item, index) in list">
+						<div class="tones-item" v-for="(item, index) in list" :key="index">
 							<Music :value="item" :index="index"></Music>
 						</div>
 					</div>

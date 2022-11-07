@@ -1,3 +1,13 @@
+let plugins = [];
+if (process.env.NODE_ENV === "production") {
+	plugins.push("transform-remove-console");
+}
+
+module.exports = {
+	babel: {
+		plugins,
+	},
+};
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
 	app: {
@@ -38,6 +48,5 @@ export default defineNuxtConfig({
 });
 
 /** 亟待解决的问题
- * 定义404页面
  * 用插件的方式清除console.log
  */

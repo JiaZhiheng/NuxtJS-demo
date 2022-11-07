@@ -1,14 +1,5 @@
 <template>
 	<div>
-		<div>
-			<Link rel="preconnect" href="https://fonts.googleapis.com" />
-			<Link
-				rel="stylesheet"
-				href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
-				crossorigin=""
-			/>
-			<Meta name="description" content="description" />
-		</div>
 		<div id="app">
 			<header class="header">
 				<div class="wrapper">
@@ -29,11 +20,19 @@
 						<label for="searchmenu" class="search-icon-wp">
 							<span class="search-icon"></span>
 						</label>
+						<div class="notfound-box">
+							<img class="notfound-img" src="./public/hiappo_404.png" alt="" />
+							<div class="notfound-title">着信音が失われました</div>
+							<div class="notfound-message">
+								別の着信音を入手してみませんか？
+							</div>
+							<NuxtLink class="notfound-button" to="/">
+								ホームページに戻る
+							</NuxtLink>
+						</div>
 						<div class="menu-category">
 							<div class="menu-category-item">
-								<span class="menu-category-link">
-									<NuxtLink to="/">人気着信音</NuxtLink>
-								</span>
+								<span class="menu-category-link">人気着信音</span>
 							</div>
 							<div class="menu-category-item">
 								<span class="menu-category-link">
@@ -41,7 +40,9 @@
 								</span>
 							</div>
 							<div class="menu-category-item">
-								<span class="menu-category-link"> Test </span>
+								<span class="menu-category-link">
+									<NuxtLink to="/test">Test</NuxtLink>
+								</span>
 							</div>
 						</div>
 						<div class="search">
@@ -63,76 +64,30 @@
 			</header>
 			<div class="wrapper">
 				<section>
-					<h2 class="section-tl">{{ name }}</h2>
+					<h2 class="section-tl">人気着信音</h2>
 					<div class="tones-ls">
 						<div class="tones-item" v-for="(item, index) in list" :key="index">
 							<Music :value="item" :index="index"></Music>
 						</div>
 					</div>
-					<a class="tones-more" id="loadMore" @click="ja()">获取日文数据</a>
-					<a class="tones-more" id="loadMore" @click="en()">获取英文数据</a>
-					<a class="tones-more" id="loadMore" @click="remove()">清空数据</a>
+					<a class="tones-more" id="loadMore">もっと見る</a>
 				</section>
 			</div>
 		</div>
 	</div>
 </template>
+
 <script setup>
 	import { ref } from "vue";
-	const list = ref([]);
-	const name = ref("");
+	const list = ref("");
 
-	// 定义Head （优先级高于全局的配置）
-	useHead({
-		title: "test",
-		meta: [
-			{
-				name: "description", // 是一段简短而精确的、对页面内容的描述
-				content: "Diggo",
-			},
-			{
-				name: "keywords", // 与页面内容相关的关键词，使用逗号分隔。
-				content: "Hiappo",
-			},
-		],
-		script: [
-			{
-				src: "https://third-party-script.com",
-				body: false, // 附加到标记的末尾
-			},
-		],
-	});
-
-	// 获取英文数据
-	const { data: EnglishList, refresh: English } = await useFetch(
-		() => "https://hiappo.app/getlist",
-		{ method: "get", params: { lang: "" } }
-	);
-
-	// 获取日文数据
-	// 解构赋值
-	const { data: JapanList, refresh: Japan } = await useFetch(
+	const { data: arrayList } = await useFetch(
 		() => "https://hiappo.app/getlist",
 		{ method: "get", params: { lang: "ja" } }
 	);
+	list.value = arrayList._value.list;
 
-	// 重新获取日文数据
-	const ja = () => {
-		name.value = "日文数据";
-		Japan();
-		list.value = JapanList._value.list;
-		console.log(list.value);
-	};
-
-	// 重新获取英文数据
-	const en = () => {
-		name.value = "英文数据";
-		English();
-		list.value = EnglishList._value.list;
-		console.log(list.value);
-	};
-
-	const remove = () => {
-		list.value = [];
-	};
+	defineProps({
+		error: Object,
+	});
 </script>
