@@ -20,19 +20,11 @@
 						<label for="searchmenu" class="search-icon-wp">
 							<span class="search-icon"></span>
 						</label>
-						<div class="notfound-box">
-							<img class="notfound-img" src="/hiappo_404.png" alt="" />
-							<div class="notfound-title">着信音が失われました</div>
-							<div class="notfound-message">
-								別の着信音を入手してみませんか？
-							</div>
-							<NuxtLink class="notfound-button" to="/">
-								ホームページに戻る
-							</NuxtLink>
-						</div>
 						<div class="menu-category">
 							<div class="menu-category-item">
-								<span class="menu-category-link">人気着信音</span>
+								<span class="menu-category-link"
+									><NuxtLink to="/">人気着信音</NuxtLink></span
+								>
 							</div>
 							<div class="menu-category-item">
 								<span class="menu-category-link">
@@ -43,6 +35,9 @@
 								<span class="menu-category-link">
 									<NuxtLink to="/test">Test</NuxtLink>
 								</span>
+							</div>
+							<div class="menu-category-item">
+								<span class="menu-category-link">Scroll</span>
 							</div>
 						</div>
 						<div class="search">
@@ -64,10 +59,10 @@
 			</header>
 			<div class="wrapper">
 				<section>
-					<h2 class="section-tl">人気着信音</h2>
-					<div class="tones-ls">
+					<h2 class="section-tl">新着着信音</h2>
+					<div class="tones-ls" style="flex-direction: column">
 						<div class="tones-item" v-for="(item, index) in list" :key="index">
-							<Music :value="item" :index="index"></Music>
+							<Ringtone :value="item" :index="index"></Ringtone>
 						</div>
 					</div>
 					<a class="tones-more" id="loadMore">もっと見る</a>
@@ -76,18 +71,55 @@
 		</div>
 	</div>
 </template>
-
 <script setup>
-	import { ref } from "vue";
+	import { ref, onMounted } from "vue";
 	const list = ref("");
 
-	const { data: arrayList } = await useFetch(
+	const { data: arrayList, refresh } = await useFetch(
 		() => "https://hiappo.app/getlist",
 		{ method: "get", params: { lang: "ja" } }
 	);
 	list.value = arrayList._value.list;
 
-	defineProps({
-		error: Object,
+	let options = {
+		root: null,
+		rootMargin: "0px 0px 300px 0px",
+		threshold: 0,
+	};
+
+	// 滑动加载方法
+	function scrollLoad() {
+		let loadMore = document.getElementById("loadMore");
+		let observer = new IntersectionObserver((entries) => {
+			// 回调函数
+			refresh();
+			list.value = list.value.concat(arrayList._value.list);
+			lazyload();
+			console.log(list.value.length);
+		}, options);
+		observer.observe(loadMore);
+	}
+
+	// 懒加载方法
+	function lazyload() {
+		let images = document.querySelectorAll("img");
+		Array.from(images).length = 30;
+		let observer = new IntersectionObserver((entries) => {
+			entries.forEach((item) => {
+				// 回调函数
+				if (item.isIntersecting) {
+					item.target.src = item.target.dataset.origin;
+					observer.unobserve(item.target);
+				}
+			});
+		}, options);
+		images.forEach((item) => observer.observe(item));
+	}
+
+	/* 组件挂载 */
+	onMounted(() => {
+		scrollLoad();
 	});
+	/* 组件卸载 */
+	onUnmounted(() => {});
 </script>
