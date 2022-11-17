@@ -46,6 +46,7 @@
 	</div>
 </template>
 <script>
+// 尝试使用 setup 语法糖
 	import { defineComponent } from "vue";
 	export default defineComponent({
 		name: "Music",
