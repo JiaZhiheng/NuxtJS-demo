@@ -103,7 +103,7 @@
 	// 懒加载方法
 	function lazyload() {
 		let images = document.querySelectorAll("img");
-		Array.from(images).length = 30;
+		// Array.from(images).length = 30;
 		let observer = new IntersectionObserver((entries) => {
 			entries.forEach((item) => {
 				// 回调函数
